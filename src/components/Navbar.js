@@ -7,11 +7,14 @@ const Navbar = () => {
         <AppBar position="static">
             <Toolbar>
                 <Typography variant="h6" style={{ flexGrow: 1 }}>
-                    AI Playlist Generator
+                    Playlist Generator
                 </Typography>
-                <Button color="inherit" component={Link} to="/">Home</Button>
-                <Button color="inherit" component={Link} to="/login">Login</Button>
-                <Button color="inherit" component={Link} to="/signup">Signup</Button>
+                <Button color="inherit" component={Link} to="/login">
+                    Login
+                </Button>
+                <Button color="inherit" component={Link} to="/signup">
+                    Signup
+                </Button>
             </Toolbar>
         </AppBar>
     );

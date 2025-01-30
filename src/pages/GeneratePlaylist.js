@@ -9,9 +9,16 @@ const GeneratePlaylist = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:5000/api/playlist/generate', {
-                mood,
-            });
+            const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
+            const response = await axios.post(
+                'http://localhost:5000/api/playlist/generate',
+                { mood },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
             console.log('Playlist generated successfully:', response.data);
         } catch (err) {
             console.error('Error generating playlist:', err);
