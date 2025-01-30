@@ -12,7 +12,7 @@ const MoodInput = ({ onSubmit }) => {
     return (
         <form onSubmit={handleSubmit}>
             <TextField
-                label="Enter your mood (e.g., happy, sad)"
+                label="Enter your mood"
                 value={mood}
                 onChange={(e) => setMood(e.target.value)}
                 fullWidth

@@ -1,13 +1,29 @@
 import React, { useState } from 'react';
 import MoodInput from '../components/MoodInput';
-import { Button, Container, Typography } from '@mui/material';
+import { Container, Typography } from '@mui/material';
+import axios from 'axios';
 
 const Home = () => {
     const [mood, setMood] = useState('');
+    const [playlist, setPlaylist] = useState(null);
 
-    const handleMoodSubmit = (mood) => {
+    const handleMoodSubmit = async (mood) => {
         setMood(mood);
-        // Call backend API to generate playlist
+        try {
+            const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
+            const response = await axios.post(
+                'http://localhost:5000/api/playlist/generate',
+                { mood },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            setPlaylist(response.data.playlist);
+        } catch (err) {
+            console.error('Error generating playlist:', err);
+        }
     };
 
     return (
@@ -16,6 +32,18 @@ const Home = () => {
                 AI-Powered Playlist Generator
             </Typography>
             <MoodInput onSubmit={handleMoodSubmit} />
+            {playlist && (
+                <div>
+                    <Typography variant="h5" gutterBottom>
+                        Generated Playlist
+                    </Typography>
+                    <ul>
+                        {playlist.tracks.map((track, index) => (
+                            <li key={index}>{track}</li>
+                        ))}
+                    </ul>
+                </div>
+            )}
         </Container>
     );
 };

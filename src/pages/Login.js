@@ -16,6 +16,7 @@ const Login = () => {
                 email,
                 password,
             });
+            localStorage.setItem('token', response.data.token); // Store the token in localStorage
             console.log('Login successful:', response.data);
             navigate('/dashboard'); // Adjust the navigation as needed
         } catch (err) {
